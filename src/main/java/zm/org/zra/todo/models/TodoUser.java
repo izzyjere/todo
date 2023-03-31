@@ -19,6 +19,7 @@ public class TodoUser {
     private String username;
     private String firstName;
     private String lastName;
+    private String password;
     @OneToMany(mappedBy = "todoUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Todo> todos = new HashSet<>();
 }
