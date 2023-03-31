@@ -9,7 +9,7 @@ import java.util.Set;
 public class UserDTO {
     private long id;
     private String username;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     private Set<TodoDTO> todos = new HashSet<>();
 }

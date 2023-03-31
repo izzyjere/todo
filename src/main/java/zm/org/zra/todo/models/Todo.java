@@ -15,9 +15,13 @@ public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private String details;
+    @Column(nullable = false)
     private String status;
+    @Column(nullable = false)
     private Date createdOn;
+    @Column(nullable = false)
     private Date completedOn;
     @ManyToOne
     @JoinColumn(name = "todo_user_id")

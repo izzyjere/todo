@@ -1,8 +1,16 @@
 package zm.org.zra.todo.services.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import zm.org.zra.todo.dtos.ActionResult;
+import zm.org.zra.todo.dtos.LoginDTO;
 import zm.org.zra.todo.dtos.RegisterDTO;
 import zm.org.zra.todo.models.TodoUser;
 import zm.org.zra.todo.repositories.IUserRepository;
@@ -16,6 +24,7 @@ public class UserService implements IUserService {
     private IUserRepository repository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public TodoUser getById(long id) {
         var record = repository.findById(id);
@@ -36,13 +45,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String delete(long id) {
+    public ActionResult delete(long id) {
         var user = getById(id);
         if(user != null){
             repository.delete(user);
-            return  "User : " + user.getUsername() + "Deleted";
+            return new ActionResult(true,  "User : " + user.getUsername() + "Deleted");
         }
-        return "User deletion failed. User not found.";
+        return new ActionResult(false, "User deletion failed. User not found.");
     }
 
     @Override
@@ -55,21 +64,23 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String register(RegisterDTO request) {
+    public ActionResult register(RegisterDTO request) {
         try {
             var existingUser = repository.findByUsername(request.getUsername());
-            if(existingUser != null){
-                return  "User with username " + request.getUsername() + " already exist.";
+            if(existingUser.isPresent()){
+                return new ActionResult(  false,"User with username " + request.getUsername() + " already exist.");
             }
             var user = new TodoUser();
-            user.setFirstName(request.getFirstName());
-            user.setLastName(request.getLastName());
+            user.setFirstname(request.getFirstname());
+            user.setLastname(request.getLastname());
             user.setPassword(passwordEncoder.encode((request.getPassword())));
             user.setUsername(request.getUsername());
             save(user);
-            return  "User: " + user.getUsername() + "Registered Successfully.";
+            return new ActionResult(true, "User: " + user.getUsername() + "Registered Successfully.");
         }catch (Exception e){
-            return  e.getMessage();
+            return new ActionResult(false, e.getMessage());
         }
     }
+
+
 }

@@ -2,10 +2,12 @@ package zm.org.zra.todo.services.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import zm.org.zra.todo.dtos.ActionResult;
 import zm.org.zra.todo.models.Todo;
 import zm.org.zra.todo.repositories.ITodoRepository;
 import zm.org.zra.todo.services.interfaces.ITodoService;
 
+import javax.swing.*;
 import java.util.List;
 
 @Service
@@ -32,13 +34,13 @@ public class TodoService implements ITodoService {
     }
 
     @Override
-    public String delete(long id) {
+    public ActionResult delete(long id) {
         var todo = getById(id);
         if(todo != null){
             repository.delete(todo);
-            return  "Todo : " + todo.getDetails() + "Deleted";
+            return new ActionResult(true,"Todo : " + todo.getDetails() + "Deleted") ;
         }
-        return "Todo deletion failed. Record was not found.";
+        return new ActionResult(false, "Todo deletion failed. Record was not found.");
     }
 
     @Override
