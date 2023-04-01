@@ -83,3 +83,10 @@ body {
    align-items: center;
    height: 100vh;
 }
+#e-icon{
+  font-size: 1.5em;
+}
+.alert-danger{
+ background-color: var(--danger) !important;
+ color: var(--white) !important;
+}
