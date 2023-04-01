@@ -8,4 +8,6 @@ import java.util.List;
 @Service
 public interface ITodoService extends ICrudService<Todo> {
     List<Todo> getByUserId(long id);
+
+    void complete(long parseLong);
 }

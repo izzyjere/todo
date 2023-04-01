@@ -23,7 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .cors().and().csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/home","/todos","/index").authenticated().and()
+                .authorizeHttpRequests().requestMatchers("/home","/todos","/index","api/todo/**").authenticated().and()
                 .authorizeHttpRequests().anyRequest().permitAll().and()
                 .formLogin(form->{
                     form.loginPage("/login").permitAll();

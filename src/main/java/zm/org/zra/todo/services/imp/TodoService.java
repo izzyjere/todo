@@ -7,7 +7,8 @@ import zm.org.zra.todo.models.Todo;
 import zm.org.zra.todo.repositories.ITodoRepository;
 import zm.org.zra.todo.services.interfaces.ITodoService;
 
-import javax.swing.*;
+import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -46,5 +47,13 @@ public class TodoService implements ITodoService {
     @Override
     public List<Todo> getByUserId(long id) {
         return repository.findAllByTodoUserId(id);
+    }
+
+    @Override
+    public void complete(long parseLong) {
+        var todo = getById(parseLong);
+        todo.setCompletedOn(Date.from(Instant.now()));
+        todo.setStatus("Completed");
+        save(todo);
     }
 }

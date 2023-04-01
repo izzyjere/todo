@@ -1,11 +1,11 @@
 package zm.org.zra.todo.models;
 
-import java.util.Date;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Entity
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class Todo {
     private String status;
     @Column(nullable = false)
     private Date createdOn;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date completedOn;
     @ManyToOne
     @JoinColumn(name = "todo_user_id")
