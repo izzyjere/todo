@@ -9,15 +9,13 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import zm.org.zra.todo.security.AuthorizationFailureHandler;
 import zm.org.zra.todo.security.TodoUserDetailsService;
 
 @Configuration
 public class SecurityConfig {
     @Autowired
     private TodoUserDetailsService userDetailsService;
-    @Autowired
-    private AuthorizationFailureHandler authorizationFailureHandler;
+
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
 
@@ -25,15 +23,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .cors().and().csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/index","/home","/todos").authenticated().and()
-                .authorizeHttpRequests().anyRequest().permitAll()
-                .and()
-                .formLogin().loginPage("/")
-                .failureHandler(authorizationFailureHandler)
-                .and()
-                .logout().logoutSuccessUrl("/")
-                .permitAll()
-                .and();
+                .authorizeHttpRequests().requestMatchers("/home","/todos","/index").authenticated().and()
+                .authorizeHttpRequests().anyRequest().permitAll().and()
+                .formLogin(form->{
+                    form.loginPage("/login").permitAll();
+                });
+
+
         return  httpSecurity.build();
     }
     @Bean

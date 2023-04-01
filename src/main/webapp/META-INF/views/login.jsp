@@ -22,7 +22,7 @@
                     <h4 class="text-primary">Login</h4>
                 </div>
                 <div class="card-body">
-                    <form action="/signin" id="loginForm" method="POST">
+                    <form action="/login" id="loginForm" method="POST">
                         <div class="form-group">
                             <label for="username">Username:</label>
                             <input type="text" required class="form-control" id="username" name="username">
@@ -58,8 +58,8 @@
                 $(document).ready(function () {
                     const urlParams = new URLSearchParams(window.location.search);
                     const error = urlParams.get('error');
-                    if (error != null) {
-                        showMessage('Error : ' + error);
+                    if (error != undefined) {
+                        showMessage('Error : ' + "Incorrect credentials.");
                     }
                 });
                 function showMessage(message) {

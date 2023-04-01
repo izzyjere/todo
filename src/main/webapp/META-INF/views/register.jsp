@@ -45,7 +45,7 @@
                                 name="confirmPassword">
                         </div>
                         <button type="submit" class="btn btn-primary">Sign Up</button>
-                        <a title="Already have an account? Login." href="/" class="btn btn-success">Login</a>
+                        <a title="Already have an account? Login." href="/login" class="btn btn-success">Login</a>
                     </form>
 
                 </div>

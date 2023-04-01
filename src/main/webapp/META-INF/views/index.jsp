@@ -13,8 +13,17 @@
     <link rel="stylesheet" href="css/table.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 </head>
-
 <body>
+<header>
+<nav class="navbar navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white">Todo App</a>
+    <form action="/logout" class="d-flex mt-2">
+      <button class="btn btn-outline-warning" type="submit">Logout</button>
+    </form>
+  </div>
+</nav>
+</header>
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/site.js" asp-append-version="true"></script>
