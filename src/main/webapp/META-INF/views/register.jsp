@@ -67,7 +67,7 @@
         jsonObject[key] = value;
       });
 
-      fetch("/user/signup", {
+      fetch("/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

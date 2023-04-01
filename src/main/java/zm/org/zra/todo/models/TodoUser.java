@@ -1,12 +1,12 @@
 package zm.org.zra.todo.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @RequiredArgsConstructor

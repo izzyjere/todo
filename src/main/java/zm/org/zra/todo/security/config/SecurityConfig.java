@@ -7,10 +7,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import zm.org.zra.todo.config.AppConstants;
 import zm.org.zra.todo.security.AuthorizationFailureHandler;
 import zm.org.zra.todo.security.TodoUserDetailsService;
 
@@ -25,23 +23,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors().and().csrf().disable()
+        httpSecurity
+                .cors().and().csrf().disable()
+                .authorizeHttpRequests().requestMatchers("/index","/home","/todos").authenticated().and()
+                .authorizeHttpRequests().anyRequest().permitAll()
+                .and()
                 .formLogin().loginPage("/")
                 .failureHandler(authorizationFailureHandler)
-                .defaultSuccessUrl("/index")
                 .and()
-                .logout()
+                .logout().logoutSuccessUrl("/")
                 .permitAll()
-
-                .and()
-                .authorizeHttpRequests().requestMatchers("/index","/home","/todos").authenticated().and()
-                .authorizeHttpRequests().anyRequest().permitAll().and()
-                .rememberMe()
-                .key(AppConstants.SECRET_KEY)
-                .userDetailsService(userDetailsService)
-                .rememberMeCookieName("todo-spring-auth")
-                .rememberMeParameter("remember-me-token")
-                .tokenValiditySeconds(86400);
+                .and();
         return  httpSecurity.build();
     }
     @Bean

@@ -1,14 +1,11 @@
 package zm.org.zra.todo.controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import zm.org.zra.todo.dtos.RegisterDTO;
+import zm.org.zra.todo.dtos.LoginDTO;
+import zm.org.zra.todo.services.imp.AuthenticationService;
 import zm.org.zra.todo.services.interfaces.IUserService;
 
 import java.io.IOException;
@@ -17,9 +14,11 @@ import java.io.IOException;
 public class BaseController {
     @Autowired
     private IUserService userService;
-    @RequestMapping ("/index.jsp")
+    @Autowired
+    private AuthenticationService authService;
+    @RequestMapping ("/index")
     public String index(){
-       return  "index";
+        return  "index";
     }
     @RequestMapping ("/home")
     public String home(){
@@ -35,8 +34,18 @@ public class BaseController {
     }
 
     @GetMapping("/")
-    public  String login(){
+    public  String root(){
         return "login";
+    }
+    @RequestMapping("/signin")
+    public String login(LoginDTO formData) throws IOException {
+        var result = authService.login(formData);
+        if (result.isSucceeded()){
+            return  "redirect:/index";
+        }
+        else {
+            return  "redirect:/?error="+result.getMessage();
+        }
     }
 
 }

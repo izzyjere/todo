@@ -22,7 +22,7 @@
                     <h4 class="text-primary">Login</h4>
                 </div>
                 <div class="card-body">
-                    <form action="" id="loginForm" onsubmit="submitForm(event)">
+                    <form action="/login" id="loginForm" method="POST">
                         <div class="form-group">
                             <label for="username">Username:</label>
                             <input type="text" required class="form-control" id="username" name="username">
@@ -35,10 +35,12 @@
                         <a href="register" title="Don't have an account yet? Register."
                             class="btn btn-success mx-4">Register</a>
                     </form>
+
                     <div id="e-message" class="alert alert-danger mt-4 d-none">
                         <i class="fas fa-exclamation-triangle"></i>
                         <p id="e-message-content"></p>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -47,45 +49,13 @@
     <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/site.js" asp-append-version="true"></script>
     <script>
-        function submitForm(event) {
-            event.preventDefault();
-            const form = document.getElementById("loginForm");
-            const formData = new FormData(form);
-
-            // Convert the form data to a JSON object
-            const jsonObject = {};
-            formData.forEach((value, key) => {
-                jsonObject[key] = value;
-            });
-
-            fetch("/user/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(jsonObject)
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        const data = await response.json();
-                        // Get the remember-me token from the response header
-                        if (data.succeeded) {
-                            var rememberMeToken = response.headers.get("remember-me-token");
-                            // Set the remember-me cookie with the token
-                            document.cookie = "todo-spring-auth=" + rememberMeToken + "; max-age=86400; path=/";
-                            // Redirect the user to the home page
-                            window.location.href = "/index";
-                        } else {
-                            showMessage(data.message);
-                        }
-                    }
-                })
-                .catch(error => {
-                    showMessage("An error has occurred while trying to login.");
-                    console.error(error);
-                });
-        }
-
+        $(document).ready(function(){
+           const urlParams = new URLSearchParams(window.location.search);
+           const error = urlParams.get('error');
+           if(error !=null){
+             showMessage(error);
+           }
+        });
         function showMessage(message) {
             $('#e-message').removeClass("d-none");
             $('#e-message-content').text(message);
