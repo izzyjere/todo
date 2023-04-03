@@ -28,26 +28,11 @@ public class BaseController {
     public String index(ModelMap modelMap){
 
         modelMap.addAttribute("todoList",getTodos());
-        modelMap.addAttribute("username",getCurrentUser());
-        modelMap.addAttribute("userFullName",CurrentUser().toString());
+        modelMap.addAttribute("username", getCurrentUsername());
+        modelMap.addAttribute("userFullName", getCurrentUser().toString());
         return  "index";
     }
-    @RequestMapping ("/home")
-    public String home(ModelMap modelMap){
 
-        modelMap.addAttribute("todoList",getTodos());
-        modelMap.addAttribute("username",getCurrentUser());
-        modelMap.addAttribute("userFullName",CurrentUser().toString());
-       return  "index";
-    }
-    @RequestMapping ("/todos")
-    public String todos(ModelMap modelMap){
-
-        modelMap.addAttribute("todoList",getTodos());
-        modelMap.addAttribute("username",getCurrentUser());
-        modelMap.addAttribute("userFullName",CurrentUser().toString());
-       return  "index";
-    }
     @RequestMapping ("/register")
     public String register(){
        return  "register";
@@ -60,7 +45,7 @@ public class BaseController {
         newTodo.setStatus("Pending");
         newTodo.setCompletedOn(null);
         newTodo.setCreatedOn(Date.from(Instant.now()));
-        newTodo.setTodoUser(CurrentUser());
+        newTodo.setTodoUser(getCurrentUser());
         todoService.save(newTodo);
         return  "redirect:/index";
     }
@@ -82,19 +67,19 @@ public class BaseController {
         todoService.complete(Long.parseLong(modDTO.getTodoId()));
         return "redirect:/index";
     }
-   private String getCurrentUser(){
+   private String getCurrentUsername(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
    }
-   private TodoUser CurrentUser(){
-        return userService.getByUsername(getCurrentUser());
+   private TodoUser getCurrentUser(){
+        return userService.getByUsername(getCurrentUsername());
    }
    private List<TodoDTO> getTodos(){
         var outPut = new ArrayList<TodoDTO>();
-        int c= 1;
-       for (var todo: CurrentUser().getTodos()
+        int count= 1;
+       for (var todo: getCurrentUser().getTodos()
             ) {
-           outPut.add(new TodoDTO(Long.toString(todo.getId()),Integer.toString(c),todo.getDetails(),todo.getStatus(),todo.getCreatedOn(),todo.getCompletedOn(),todo.getTodoUser().toString()));
-           c++;
+           outPut.add(new TodoDTO(Long.toString(todo.getId()),Integer.toString(count),todo.getDetails(),todo.getStatus(),todo.getCreatedOn(),todo.getCompletedOn(),todo.getTodoUser().toString()));
+           count++;
        }
        return  outPut;
    }

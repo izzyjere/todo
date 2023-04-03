@@ -90,3 +90,7 @@ body {
  background-color: var(--danger) !important;
  color: var(--white) !important;
 }
+.error{
+ color:var(--danger) !important;
+ font-size : small;
+}

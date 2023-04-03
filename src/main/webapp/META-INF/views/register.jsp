@@ -25,23 +25,23 @@
                     <form id="signupForm" action="" onsubmit="submitForm(event)">
                         <div class="form-group">
                             <label for="username">Username:</label>
-                            <input type="text" required class="form-control" id="username" name="username">
+                            <input type="text"  class="form-control" id="username" name="username">
                         </div>
                         <div class="form-group">
                             <label for="firstName">First Name:</label>
-                            <input type="text" required class="form-control" id="firstName" name="firstname">
+                            <input type="text"  class="form-control" id="firstName" name="firstname">
                         </div>
                         <div class="form-group">
                             <label for="lastName">Last Name:</label>
-                            <input type="text" required class="form-control" id="lastName" name="lastname">
+                            <input type="text"  class="form-control" id="lastName" name="lastname">
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
-                            <input type="password" required class="form-control" id="password" name="password">
+                            <input type="password"  class="form-control" id="password" name="password">
                         </div>
                         <div class="form-group">
                             <label for="confirmPassword">Confirm Password:</label>
-                            <input type="password" required class="form-control" id="confirmPassword"
+                            <input type="password"  class="form-control" id="confirmPassword"
                                 name="confirmPassword">
                         </div>
                         <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -67,48 +67,8 @@
         </div>
     </div>
     <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/jquery/dist/jquery.validate.min.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/site.js" asp-append-version="true"></script>
-    <script>
-        function submitForm(event) {
-            event.preventDefault();
-            const form = document.getElementById("signupForm");
-            const formData = new FormData(form);
-
-            // Convert the form data to a JSON object
-            const jsonObject = {};
-            formData.forEach((value, key) => {
-                jsonObject[key] = value;
-            });
-
-            fetch("/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(jsonObject)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // handle the JSON response here
-                    if (data.succeeded) {
-                        window.location.href = '/';
-                        form.reset();
-                    }
-                    else {
-                        showMessage(data.message);
-                    }
-                })
-                .catch(error => {
-                    showMessage("An error has occurred while trying to create your account.");
-                    console.error(error);
-                });
-        }
-
-        function showMessage(message) {
-            $('#e-message').removeClass("d-none");
-            $('#e-message-content').text(message);
-        }
-    </script>
 </body>
 </html>

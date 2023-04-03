@@ -25,11 +25,11 @@
                     <form action="/login" id="loginForm" method="POST">
                         <div class="form-group">
                             <label for="username">Username:</label>
-                            <input type="text" required class="form-control" id="username" name="username">
+                            <input type="text"  class="form-control" id="username" name="username">
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
-                            <input type="password" required class="form-control" id="password" name="password">
+                            <input type="password"  class="form-control" id="password" name="password">
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                         <a href="register" title="Don't have an account yet? Register."
@@ -52,21 +52,10 @@
                 </div>
             </div>
             <script src="lib/jquery/dist/jquery.min.js"></script>
+            <script src="lib/jquery/dist/jquery.validate.min.js"></script>
             <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="js/site.js" asp-append-version="true"></script>
-            <script>
-                $(document).ready(function () {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const error = urlParams.get('error');
-                    if (error != undefined) {
-                        showMessage('Error : ' + "Incorrect credentials.");
-                    }
-                });
-                function showMessage(message) {
-                    $('#e-message').removeClass("d-none");
-                    $('#e-message-content').text(message);
-                }
-            </script>
+            <script src="js/site.js"></script>
+
 </body>
 
 </html>

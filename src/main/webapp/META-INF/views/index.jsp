@@ -77,16 +77,16 @@
                                                     <td>${todo.count}</td>
                                                     <td>${todo.details}</td>
                                                     <td>${todo.status}</td>
-                                                    <td>${todo.createdOn}</td>
+                                                    <td><fmt:formatDate value="${todo.createdOn}" pattern="dd MMM yyyy H:mm" /></td>
                                                     <td>${todo.completedOn != null ?
                                                         todo.completedOn : "N/A"}</td>
                                                     <td class="d-flex align-items-start">
-                                                    <form method="POST" class="mr-2" action="/delete-todo">
+                                                    <form  class="mr-2" id="deleteTodo">
                                                           <input type="hidden" name="todoId" value="${todo.id}">
                                                           <button  class="btn btn-danger" type="submit">Delete</button>
                                                     </form>
                                                     <core:if test="${todo.status != 'Completed'}">
-                                                       <form method="POST" action="/complete-todo">
+                                                       <form id="completeTodo">
                                                           <input type="hidden" name="todoId" value="${todo.id}">
                                                           <button class="btn btn-success" type="submit">Complete</button>
                                                        </form>
@@ -105,6 +105,7 @@
         </section>
     </main>
     <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/jquery/dist/jquery.validate.min.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/site.js" asp-append-version="true"></script>
 </body>
