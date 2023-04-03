@@ -31,7 +31,7 @@
                             <label for="password">Password:</label>
                             <input type="password"  class="form-control" id="password" name="password">
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button title="Login now." type="submit" class="btn btn-primary">Login</button>
                         <a href="register" title="Don't have an account yet? Register."
                             class="btn btn-success mx-4">Register</a>
                     </form>
@@ -54,7 +54,7 @@
             <script src="lib/jquery/dist/jquery.min.js"></script>
             <script src="lib/jquery/dist/jquery.validate.min.js"></script>
             <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="js/site.js"></script>
+            <script src="js/login.js"></script>
 
 </body>
 

@@ -78,17 +78,23 @@
                                                     <td>${todo.details}</td>
                                                     <td>${todo.status}</td>
                                                     <td><fmt:formatDate value="${todo.createdOn}" pattern="dd MMM yyyy H:mm" /></td>
-                                                    <td>${todo.completedOn != null ?
+                                                    <td>
+                                                     <core:if test="${todo.completedOn != null}">
+                                                       <fmt:formatDate value="${todo.completedOn}" pattern="dd MMM yyyy H:mm" />
+                                                       <core:else>
+                                                       <p>Not yet.</p>
+                                                     </core:if>
+                                                    ${todo.completedOn != null ?
                                                         todo.completedOn : "N/A"}</td>
                                                     <td class="d-flex align-items-start">
                                                     <form  class="mr-2" id="deleteTodo">
                                                           <input type="hidden" name="todoId" value="${todo.id}">
-                                                          <button  class="btn btn-danger" type="submit">Delete</button>
+                                                          <button title="Delete this todo."  class="btn btn-danger" type="submit">Delete</button>
                                                     </form>
                                                     <core:if test="${todo.status != 'Completed'}">
                                                        <form id="completeTodo">
                                                           <input type="hidden" name="todoId" value="${todo.id}">
-                                                          <button class="btn btn-success" type="submit">Complete</button>
+                                                          <button title="Mark this todo as complete" class="btn btn-success" type="submit">Complete</button>
                                                        </form>
                                                      </core:if>
                                                     </td>
@@ -107,7 +113,7 @@
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/jquery/dist/jquery.validate.min.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/site.js" asp-append-version="true"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>

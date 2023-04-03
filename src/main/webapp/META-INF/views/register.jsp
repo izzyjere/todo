@@ -22,18 +22,18 @@
                     <h4 class="text-primary">Create a new account</h4>
                 </div>
                 <div class="card-body">
-                    <form id="signupForm" action="" onsubmit="submitForm(event)">
+                    <form id="signupForm">
                         <div class="form-group">
                             <label for="username">Username:</label>
                             <input type="text"  class="form-control" id="username" name="username">
                         </div>
                         <div class="form-group">
-                            <label for="firstName">First Name:</label>
-                            <input type="text"  class="form-control" id="firstName" name="firstname">
+                            <label for="firstname">First Name:</label>
+                            <input type="text"  class="form-control" id="firstname" name="firstname">
                         </div>
                         <div class="form-group">
-                            <label for="lastName">Last Name:</label>
-                            <input type="text"  class="form-control" id="lastName" name="lastname">
+                            <label for="lastname">Last Name:</label>
+                            <input type="text"  class="form-control" id="lastname" name="lastname">
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
@@ -44,7 +44,7 @@
                             <input type="password"  class="form-control" id="confirmPassword"
                                 name="confirmPassword">
                         </div>
-                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                        <button title="Create your account." type="submit" class="btn btn-primary">Sign Up</button>
                         <a title="Already have an account? Login." href="/login" class="btn btn-success">Login</a>
                     </form>
 
@@ -69,6 +69,6 @@
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/jquery/dist/jquery.validate.min.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/site.js" asp-append-version="true"></script>
+    <script src="js/register.js"></script>
 </body>
 </html>
