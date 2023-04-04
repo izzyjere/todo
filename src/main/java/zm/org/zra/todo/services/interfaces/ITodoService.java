@@ -1,6 +1,7 @@
 package zm.org.zra.todo.services.interfaces;
 
 import org.springframework.stereotype.Service;
+import zm.org.zra.todo.dtos.ActionResult;
 import zm.org.zra.todo.models.Todo;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
 public interface ITodoService extends ICrudService<Todo> {
     List<Todo> getByUserId(long id);
 
-    void complete(long parseLong);
+    ActionResult complete(long parseLong);
 }

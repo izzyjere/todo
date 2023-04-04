@@ -7,7 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo</title>
-    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="icon" href="todo.png"/>
+    <link rel="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="css/table.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
@@ -66,9 +67,9 @@
             </div>
         </div>
     </div>
-    <script src="lib/jquery/dist/jquery.min.js"></script>
-    <script src="lib/jquery/dist/jquery.validate.min.js"></script>
-    <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="jquery/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/register.js"></script>
 </body>
 </html>

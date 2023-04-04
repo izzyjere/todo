@@ -50,10 +50,16 @@ public class TodoService implements ITodoService {
     }
 
     @Override
-    public void complete(long parseLong) {
-        var todo = getById(parseLong);
-        todo.setCompletedOn(Date.from(Instant.now()));
-        todo.setStatus("Completed");
-        save(todo);
+    public ActionResult complete(long id) {
+        try{
+            var todo = getById(id);
+            todo.setCompletedOn(Date.from(Instant.now()));
+            todo.setStatus("Completed");
+            save(todo);
+            return  new ActionResult(true,"Marked as complete");
+        }catch (Exception e){
+            return new ActionResult(false,e.getMessage());
+        }
+
     }
 }

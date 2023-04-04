@@ -45,11 +45,10 @@ $(document).ready(function () {
 })
 //REGISTER FORM SUBMISSION
 $(document).ready(function () {
-    const signUpForm = document.getElementById("signupForm")
-    const formData = new FormData(signUpForm);
-    signUpForm.submit(function (event) {
+    $("#signupForm").on("submit",function (event) {
         event.preventDefault()
-
+        const signUpForm = document.getElementById("signupForm")
+        const formData = new FormData(signUpForm);
         // Convert the form data to a JSON object
         const postData = {}
         formData.forEach((value, key) => {
