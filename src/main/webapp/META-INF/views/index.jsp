@@ -66,8 +66,7 @@
                         <h5 class="text-center mb-4">Hello ${userFullName}!</h5>
                         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#todoModal"><i class="fas fa-plus mr-2"></i>Add Todo</button>
                         <div class="table-wrap">
-                            <form method="post">
-                                <table class="table">
+                                <table class="table table-striped">
                                     <colgroup>
                                         <col width="5%" />
                                         <col width="30%" />
@@ -107,22 +106,17 @@
                                                        </core:if>
                                                        ${todo.completedOn != null ? "" : "N/A"}
                                                    </td>
-                                                   <td class="d-flex align-items-start justify-content-between">
-                                                      <div class="dropdown">
-                                                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"  aria-haspopup="true" id="dropdownMenuButton" aria-expanded="true"><i class="mx-2 fas fa-pen"></i>Edit</button>
-                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <core:if test="${todo.status != 'Completed'}">
-                                                                 <button title="Mark this todo as complete" class="dropdown-item btn btn-success" onclick="complete(${todo.id})"><i class="mr-2 fas fa-clipboard-check"></i> Done</button>
-                                                            </core:if>
-                                                           <button class="dropdown-item dropdown-item btn btn-warning" type="button">Edit</button>
-                                                         </div>
-                                                      </div>
+                                                   <td class="d-flex align-items-start justify-content-start">
+                                                        <button title="Edit this todo" class="btn btn-outline-warning mx-2" data-bs-toggle="modal" data-bs-target="#todoModal" data-todo-id="${todo.id}" data-todo-text="${todo.details}" type="button"><i class="mx-2 fas fa-pen"></i></button>
+                                                        <button title="Delete this todo" onclick="deleteTodo(${todo.id})" class="btn btn-outline-danger mx-2"><i class="mx-2 fas fa-trash"></i></button>
+                                                         <core:if test="${todo.status != 'Completed'}">
+                                                              <button title="Mark this todo as complete" class="btn btn-outline-success mx-2" onclick="complete(${todo.id})"><i class="mx-2 fas fa-clipboard-check"></i></button>
+                                                         </core:if>
                                                    </td>
                                                </tr>
                                            </core:forEach>
                                     </tbody>
                                 </table>
-                            </form>
                         </div>
                     </div>
                 </div>

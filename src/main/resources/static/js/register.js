@@ -45,7 +45,7 @@ $(document).ready(function () {
 })
 //REGISTER FORM SUBMISSION
 $(document).ready(function () {
-    $("#signupForm").on("submit",function (event) {
+    $("#signupForm").on("submit", function (event) {
         event.preventDefault()
         const signUpForm = document.getElementById("signupForm")
         const formData = new FormData(signUpForm);
