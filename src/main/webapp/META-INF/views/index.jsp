@@ -77,7 +77,7 @@
                                     </colgroup>
                                     <thead class="thead-primary">
                                         <tr>
-                                            <th>ID</th>
+                                            <th>#</th>
                                             <th>Details</th>
                                             <th>Status</th>
                                             <th>Created On</th>
@@ -99,10 +99,10 @@
                                                       </core:if>
 
                                                    </td>
-                                                   <td><fmt:formatDate value="${todo.createdOn}" pattern="dd/mm/yyyy H:mm" /></td>
+                                                   <td><fmt:formatDate value="${todo.createdOn}" pattern="dd/MM/yyyy H:mm" /></td>
                                                    <td>
                                                        <core:if test="${todo.completedOn != null}">
-                                                           <fmt:formatDate value="${todo.completedOn}" pattern="dd/mm/yyyy H:mm" />
+                                                           <fmt:formatDate value="${todo.completedOn}" pattern="dd/MM/yyyy H:mm" />
                                                        </core:if>
                                                        ${todo.completedOn != null ? "" : "N/A"}
                                                    </td>

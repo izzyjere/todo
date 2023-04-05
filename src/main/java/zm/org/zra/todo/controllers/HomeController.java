@@ -7,11 +7,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import zm.org.zra.todo.dtos.TodoDTO;
+import zm.org.zra.todo.models.Todo;
 import zm.org.zra.todo.models.TodoUser;
 import zm.org.zra.todo.services.interfaces.IUserService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -48,8 +51,9 @@ public class HomeController {
    }
    private List<TodoDTO> getTodos(){
         var outPut = new ArrayList<TodoDTO>();
+        var sortedTodos = getCurrentUser().getTodos().stream().sorted(Comparator.comparing(Todo::getCreatedOn,Comparator.reverseOrder())).collect(Collectors.toList());
         int count= 1;
-       for (var todo: getCurrentUser().getTodos()
+       for (var todo: sortedTodos
             ) {
            outPut.add(new TodoDTO(Long.toString(todo.getId()),Integer.toString(count),todo.getDetails(),todo.getStatus(),todo.getCreatedOn(),todo.getCompletedOn(),todo.getTodoUser().toString()));
            count++;

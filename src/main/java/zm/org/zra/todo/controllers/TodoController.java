@@ -43,28 +43,32 @@ public class TodoController {
     }
     @PostMapping
     public ResponseEntity<?> saveTodo(@RequestBody AddEditTodoDTO entity){
+        try {
+            if(entity.getId()>0){
+                var extistingTodo = todoService.getById(entity.getId());
+                extistingTodo.setDetails(entity.getDetails());
+                var saved = todoService.save(extistingTodo);
+                if(saved!=null){
+                    return  ResponseEntity.accepted().body(new ActionResult(true,"Todo saved."));
+                }
+                return ResponseEntity.internalServerError().body(new ActionResult(false,"Failed to save todo."));
+            }
+            var todo = new Todo();
+            todo.setDetails(entity.getDetails());
+            todo.setStatus("Pending");
+            todo.setCompletedOn(null);
+            todo.setCreatedOn(Date.from(Instant.now()));
+            todo.setTodoUser(getCurrentUser());
 
-        if(entity.getId()>0){
-          var extistingTodo = todoService.getById(entity.getId());
-          extistingTodo.setDetails(entity.getDetails());
-          var saved = todoService.save(extistingTodo);
-          if(saved!=null){
-              return  ResponseEntity.accepted().body(new ActionResult(true,"Todo saved."));
-          }
-           return ResponseEntity.internalServerError().body(new ActionResult(false,"Failed to save todo."));
-        }
-        var todo = new Todo();
-        todo.setDetails(entity.getDetails());
-        todo.setStatus("Pending");
-        todo.setCompletedOn(null);
-        todo.setCreatedOn(Date.from(Instant.now()));
-        todo.setTodoUser(getCurrentUser());
+            var saved = todoService.save(todo);
+            if(saved!=null){
+                return  ResponseEntity.accepted().body(new ActionResult(true,"Todo saved."));
+            }
+            return ResponseEntity.internalServerError().body(new ActionResult(false,"Failed to save todo."));
 
-        var saved = todoService.save(todo);
-        if(saved!=null){
-            return  ResponseEntity.accepted().body(new ActionResult(true,"Todo saved."));
+        }catch (Exception e){
+            return  ResponseEntity.internalServerError().body(e.getMessage());
         }
-        return ResponseEntity.internalServerError().body(new ActionResult(false,"Failed to save todo."));
     }
     private String getCurrentUsername(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
