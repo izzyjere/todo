@@ -47,6 +47,7 @@ public class TodoController {
             if(entity.getId()>0){
                 var extistingTodo = todoService.getById(entity.getId());
                 extistingTodo.setDetails(entity.getDetails());
+                extistingTodo.setStatus(entity.getStatus());
                 var saved = todoService.save(extistingTodo);
                 if(saved!=null){
                     return  ResponseEntity.accepted().body(new ActionResult(true,"Todo saved."));
@@ -55,7 +56,7 @@ public class TodoController {
             }
             var todo = new Todo();
             todo.setDetails(entity.getDetails());
-            todo.setStatus("Pending");
+            todo.setStatus(entity.getStatus());
             todo.setCompletedOn(null);
             todo.setCreatedOn(Date.from(Instant.now()));
             todo.setTodoUser(getCurrentUser());

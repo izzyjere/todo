@@ -1,5 +1,10 @@
 ﻿$(document).ready(function () {
-  $(".dropdown-toggle").dropdown()
+   $(function() {
+      $('#status').bootstrapToggle({
+        on: 'Done',
+        off: 'Pending'
+      });
+    })
 })
 //DELETE TODO
 function deleteTodo(todoId) {
@@ -64,23 +69,35 @@ $(document).ready(function () {
     var button = $(event.relatedTarget)// Button that triggered the modal
     var todoId = button.data('todo-id') // Extract info from data-* attributes
     var todoText = button.data('todo-text')
+    var todoStatus = button.data('todo-status')
     var modal = $(this)
     if (todoId) {
       modal.find('.modal-title').text('Edit Todo')
       modal.find('#todoId').val(todoId)
       modal.find('#todoText').val(todoText)
+      modal.find('#todoStatus').val(todoStatus)
+      modal.find('#todoStatus').prop('checked', todoStatus == "Completed")
     } else {
       modal.find('.modal-title').text('Add Todo')
       modal.find('#todoId').val(0)
-      modal.find('#todoText').val('')
+      modal.find('#todoStatus').val('Pending')
     }
   });
-
+  $('#todoStatus').on('change',function(){
+     var box = $(this)
+      if(box.is(':checked')){
+        box.val("Completed")
+      }
+      else{
+       box.val("Pending")
+      }
+  })
   $('#saveTodo').click(function () {
     var todoId = $('#todoId').val()
     var todoText = $('#todoText').val()
+    var todoStatus = $('#todoStatus').val()
     // AJAX
-    let postData = JSON.stringify({ details: todoText, id: parseInt(todoId) })
+    let postData = JSON.stringify({ details: todoText, id: parseInt(todoId), status : todoStatus })
 
     //POST to API
     $.ajax({

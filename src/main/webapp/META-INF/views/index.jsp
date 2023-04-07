@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo</title>
     <link rel="icon" href="todo.png"/>
-    <link rel="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/site.css" />
     <link rel="stylesheet" href="css/table.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
@@ -49,6 +49,12 @@
                   <div class="mb-3">
                     <label for="todoText" class="form-label">Task</label>
                     <input type="text" class="form-control" id="todoText">
+                  </div>
+                  <div class="mb-3">
+                   <div class="form-check form-switch ml-4 mt-4">
+                     <input class="form-check-input" type="checkbox" id="todoStatus">
+                     <label class="form-check-label" for="todoStatus">Completed</label>
+                   </div>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -107,7 +113,7 @@
                                                        ${todo.completedOn != null ? "" : "N/A"}
                                                    </td>
                                                    <td class="d-flex align-items-start justify-content-start">
-                                                        <button title="Edit this todo" class="btn btn-outline-warning mx-2" data-bs-toggle="modal" data-bs-target="#todoModal" data-todo-id="${todo.id}" data-todo-text="${todo.details}" type="button"><i class="mx-2 fas fa-pen"></i></button>
+                                                        <button title="Edit this todo" class="btn btn-outline-warning mx-2" data-bs-toggle="modal" data-bs-target="#todoModal" data-todo-id="${todo.id}" data-todo-status="${todo.status}" data-todo-text="${todo.details}" type="button"><i class="mx-2 fas fa-pen"></i></button>
                                                         <button title="Delete this todo" onclick="deleteTodo(${todo.id})" class="btn btn-outline-danger mx-2"><i class="mx-2 fas fa-trash"></i></button>
                                                          <core:if test="${todo.status != 'Completed'}">
                                                               <button title="Mark this todo as complete" class="btn btn-outline-success mx-2" onclick="complete(${todo.id})"><i class="mx-2 fas fa-clipboard-check"></i></button>
@@ -125,7 +131,7 @@
     </main>
     <script src="jquery/dist/jquery.min.js"></script>
     <script src="jquery/dist/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap/bootstrap.bundle.min.js"></script>
     <script src="js/index.js"></script>
 </body>
 
