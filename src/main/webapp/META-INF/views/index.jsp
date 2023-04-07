@@ -132,6 +132,7 @@
     <script src="jquery/dist/jquery.min.js"></script>
     <script src="jquery/dist/jquery.validate.min.js"></script>
     <script src="bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
     <script src="js/index.js"></script>
 </body>
 

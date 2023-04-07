@@ -1,65 +1,91 @@
-﻿$(document).ready(function () {
-   $(function() {
-      $('#status').bootstrapToggle({
-        on: 'Done',
-        off: 'Pending'
-      });
-    })
-})
-//DELETE TODO
+﻿//DELETE TODO
 function deleteTodo(todoId) {
-
-  const confirmed = confirm("Are you sure you want to delete this todo?")
-  if (!confirmed) {
-    return
-  }
-  const postData = { todoId: parseInt(todoId) }
-
-  $.ajax({
-    url: `/todo/delete?id=${todoId}`,
-    type: "DELETE",
-    success: function (data) {
-      if (data.succeeded) {
-        window.location.href = "/index"
-      }
-      else {
-        alert(data.message)
-      }
-    },
-    error: function (error) {
-      alert(
-        "An error has occurred while trying to delete."
-      )
-      console.error(error)
-    },
+swal({
+    title: "Delete todo",
+    text: "Are you sure you want to delete this todo?",
+    icon: "warning",
+    cancel: {
+        text: "Cancel",
+        value: null,
+        visible: true,
+        className: "",
+        closeModal: true,
+      },
+      confirm: {
+        text: "Yes",
+        value: true,
+        visible: true,
+        className: "",
+        closeModal: true
+      },
+    dangerMode:true
   })
+  .then(mark => {
+    if (mark) {
+     $.ajax({
+         url: `/todo/delete?id=${todoId}`,
+         type: "DELETE",
+         success: function (data) {
+           if (data.succeeded) {
+             swal("Deleted!", "Todo has been deleted!", "success");
+             window.location.href = "/index"
+           }
+           else {
+            swal("Oops!", data.message, "error");
+           }
+         },
+         error: function (error) {
+           swal("Oops!", "Seems like we couldn't delete that task.", "error");
+           console.error(error)
+         },
+       })
+    }
+  });
+
 }
 
 //COMPLETE TODO
 function complete(todoId) {
-  const confirmed = confirm("Are you sure you want to mark this todo as complete?")
-  if (!confirmed) {
-    return
-  }
-  $.ajax({
-    url: `/todo/complete?id=${todoId}`,
-    type: "PUT",
-    success: function (data) {
-      if (data.succeeded) {
-        window.location.href = "/index"
+  swal({
+    title: "Complete todo",
+    text: "Are you sure you want to mark this todo as complete?",
+    icon: "info",
+    cancel: {
+        text: "Cancel",
+        value: null,
+        visible: true,
+        className: "",
+        closeModal: true,
+      },
+      confirm: {
+        text: "Yes",
+        value: true,
+        visible: true,
+        className: "",
+        closeModal: true
       }
-      else {
-        alert(data.message)
-      }
-    },
-    error: function (error) {
-      alert(
-        "An error has occurred. Try again"
-      )
-      console.error(error)
-    },
   })
-
+  .then(mark => {
+    if (mark) {
+     $.ajax({
+         url: `/todo/complete?id=${todoId}`,
+         type: "PUT",
+         success: function (data) {
+           if (data.succeeded) {
+             swal("Completed!", "Todo has been marked as complete!", "success");
+             window.location.href = "/index"
+           }
+           else {
+            swal("Oops!", data.message, "error");
+           }
+         },
+         error: function (error) {
+           swal("Oops!", "Seems like we couldn't complete that task.", "error");
+           console.error(error)
+         },
+       })
+    }
+  });
 }
 
 
