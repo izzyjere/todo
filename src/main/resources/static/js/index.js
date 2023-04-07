@@ -20,22 +20,22 @@ swal({
       },
     dangerMode:true
   })
-  .then(mark => {
-    if (mark) {
+  .then((willDelete) => {
+    if (willDelete) {
      $.ajax({
          url: `/todo/delete?id=${todoId}`,
          type: "DELETE",
-         success: function (data) {
+         success: async function (data) {
            if (data.succeeded) {
-             swal("Deleted!", "Todo has been deleted!", "success");
+             await swal("Deleted!", "Todo has been deleted!", "success");
              window.location.href = "/index"
            }
            else {
-            swal("Oops!", data.message, "error");
+            await swal("Oops!", data.message, "error");
            }
          },
-         error: function (error) {
-           swal("Oops!", "Seems like we couldn't delete that task.", "error");
+         error: async function (error) {
+           await swal("Oops!", "Seems like we couldn't delete that task.", "error");
            console.error(error)
          },
        })
@@ -65,22 +65,22 @@ function complete(todoId) {
         closeModal: true
       }
   })
-  .then(mark => {
+  .then((mark) => {
     if (mark) {
      $.ajax({
          url: `/todo/complete?id=${todoId}`,
          type: "PUT",
-         success: function (data) {
+         success: async function (data) {
            if (data.succeeded) {
-             swal("Completed!", "Todo has been marked as complete!", "success");
+             await swal("Completed!", "Todo has been marked as complete!", "success");
              window.location.href = "/index"
            }
            else {
-            swal("Oops!", data.message, "error");
+             await swal("Oops!", data.message, "error");
            }
          },
-         error: function (error) {
-           swal("Oops!", "Seems like we couldn't complete that task.", "error");
+         error: async function (error) {
+           await swal("Oops!", "Seems like we couldn't complete that task.", "error");
            console.error(error)
          },
        })
@@ -132,16 +132,17 @@ $(document).ready(function () {
       contentType: "application/json",
       data: postData,
       dataType: "json",
-      success: function (data) {
+      success: async function (data) {
         if (data.succeeded) {
+          await swal("Saved!", "Todo has been saved!", "success");
           window.location.href = "/index"
         }
         else {
-          alert(data.message)
+           await swal("Oops!", data.message, "error");
         }
       },
-      error: function (error) {
-        alert("An error has occurred while trying to save the todo.")
+      error: async function (error) {
+        await swal("Oops!", "Seems like we couldn't save that task.", "error");
         console.error(JSON.stringify(error))
       }
     })
