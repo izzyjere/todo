@@ -4,6 +4,7 @@ swal({
     title: "Delete todo",
     text: "Are you sure you want to delete this todo?",
     icon: "warning",
+    buttons:{
     cancel: {
         text: "Cancel",
         value: null,
@@ -17,7 +18,7 @@ swal({
         visible: true,
         className: "",
         closeModal: true
-      },
+      }},
     dangerMode:true
   })
   .then((willDelete) => {
@@ -50,6 +51,7 @@ function complete(todoId) {
     title: "Complete todo",
     text: "Are you sure you want to mark this todo as complete?",
     icon: "info",
+      buttons:{
     cancel: {
         text: "Cancel",
         value: null,
@@ -58,12 +60,12 @@ function complete(todoId) {
         closeModal: true,
       },
       confirm: {
-        text: "Yes",
+        text: "Complete",
         value: true,
         visible: true,
         className: "",
         closeModal: true
-      }
+      }}
   })
   .then((mark) => {
     if (mark) {

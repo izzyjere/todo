@@ -54,7 +54,7 @@
             </div>
             <script src="jquery/dist/jquery.min.js"></script>
             <script src="jquery/dist/jquery.validate.min.js"></script>
-            <script src="bootstrap/boostrap.bundle.min.js"></script>
+            <script type="text/javascript" src="bootstrap/boostrap.bundle.min.js"></script>
             <script src="js/login.js"></script>
 
 </body>

@@ -7,6 +7,7 @@ $(document).ready(function () {
 
     // validate the form before submitting
     $("#signupForm").on("submit", function (event) {
+          event.preventDefault()
         // validate the form
         if ($(this).valid()) {
             const signUpForm = document.getElementById("signupForm")
