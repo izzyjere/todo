@@ -2,8 +2,49 @@
 $(document).ready(function () {
 
     $.validator.addMethod("passwordMatch", function (value, element) {
-        return value == $('#password').val()
+        return value === $('#password').val()
     }, "Passwords do not match.")
+
+    // validate the form before submitting
+    $("#signupForm").on("submit", function (event) {
+        // validate the form
+        if ($(this).valid()) {
+            const signUpForm = document.getElementById("signupForm")
+            const formData = new FormData(signUpForm)
+            // Convert the form data to a JSON object
+            const postData = {}
+            formData.forEach((value, key) => {
+                postData[key] = value
+            })
+            debugger
+            $.ajax({
+                url: "/signup",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(postData),
+                dataType: "json",
+                success: function (data) {
+                    // handle the JSON response here
+                    if (data.succeeded) {
+                        window.location.href = "/"
+                        signUpForm.trigger("reset")
+                    } else {
+                        showErrorMessage(data.message)
+                    }
+                },
+                error: function (error) {
+                    showErrorMessage(
+                        "An error has occurred while trying to create your account."
+                    )
+                    console.error(error)
+                },
+            })
+        } else {
+            event.preventDefault()
+        }
+    })
+
+    // set up the validation rules and messages
     $("#signupForm").validate({
         rules: {
             username: {
@@ -41,42 +82,6 @@ $(document).ready(function () {
                 passwordMatch: "Passwords do not match"
             }
         }
-    })
-})
-//REGISTER FORM SUBMISSION
-$(document).ready(function () {
-    $("#signupForm").on("submit", function (event) {
-        event.preventDefault()
-        const signUpForm = document.getElementById("signupForm")
-        const formData = new FormData(signUpForm);
-        // Convert the form data to a JSON object
-        const postData = {}
-        formData.forEach((value, key) => {
-            postData[key] = value;
-        });
-        debugger
-        $.ajax({
-            url: "/signup",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(postData),
-            dataType: "json",
-            success: function (data) {
-                // handle the JSON response here
-                if (data.succeeded) {
-                    window.location.href = "/"
-                    signUpForm.trigger("reset")
-                } else {
-                    showErrorMessage(data.message)
-                }
-            },
-            error: function (error) {
-                showErrorMessage(
-                    "An error has occurred while trying to create your account."
-                )
-                console.error(error)
-            },
-        })
     })
 })
 function showErrorMessage(message) {
